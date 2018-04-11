@@ -1,5 +1,4 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Transform: AWS::Serverless-2016-10-31
 Description: A starter AWS Lambda function.
 Parameters:
   BasicExecutionRoleName:
@@ -16,12 +15,15 @@ Parameters:
 Resources:
   helloworldpython3:
     Properties:
-      CodeUri: .
+      CodeUri: s3://sam-packages-2c6f24a1/helloworld/2e86b15a1bea1eb7071edede856bc5bc
       Description: A starter AWS Lambda function.
-      FunctionName: !Sub '${Project}-${Environment}-HelloFunction'
+      FunctionName:
+        Fn::Sub: ${Project}-${Environment}-HelloFunction
       Handler: lambda_function.lambda_handler
       MemorySize: 128
-      Role: !Sub 'arn:aws:iam::${AWS::AccountId}:role/${BasicExecutionRoleName}'
+      Role:
+        Fn::Sub: arn:aws:iam::${AWS::AccountId}:role/${BasicExecutionRoleName}
       Runtime: python3.6
       Timeout: 3
-    Type: 'AWS::Serverless::Function'
+    Type: AWS::Serverless::Function
+Transform: AWS::Serverless-2016-10-31
